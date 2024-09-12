@@ -81,6 +81,7 @@ minetest.register_node(modname .. ":screen_wicker", {
 	description = "Wicker Screen",
 	tiles = {"nc_flora_wicker.png^(" ..woodframe.. ")"},
 	drawtype = "nodebox",
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	node_box = {
@@ -101,6 +102,7 @@ minetest.register_node(modname .. ":screen_wicker", {
 minetest.register_node(modname .. ":screen_lode_annealed", {
 	description = "Lode Screen",
 	tiles = {"(nc_lode_annealed.png^[mask:nc_concrete_pattern_hashy.png)^(" ..lodeframe.. ")"},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
@@ -112,7 +114,8 @@ minetest.register_node(modname .. ":screen_lode_annealed", {
 	groups = {
 		cracky = 2,
 		screen = 1,
-		furniture = 1
+		furniture = 1,
+		scaling_time = 50
 	},
 	sunlight_propagates = true,
 	sounds = nodecore.sounds("nc_lode_annealed")
@@ -174,7 +177,7 @@ minetest.register_node(modname .. ":shutter_fancy", {
 		furniture = 1
 	},
 	sounds = nodecore.sounds("nc_lode_annealed")
-	})
+})
 -- ================================================================== --
 minetest.register_node(modname .. ":pane_glass_clear", {
 	description = "Clear Glass Window Pane",
@@ -186,6 +189,7 @@ minetest.register_node(modname .. ":pane_glass_clear", {
 		glass.. "^(" ..anlodeframe.. ")",
 		glass.. "^(" ..anlodeframe.. ")"
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	glasslike_framed = true,
 	paramtype = "light",
@@ -251,8 +255,8 @@ nodecore.register_craft({
 	toolgroups = {choppy = 5},
 	indexkeys = {"nc_lode:shelf"},
 	nodes = {{match = {name = "nc_lode:shelf", empty = true}, replace = "air"}},
-	items = {{name = modname.. ":screen_lode_annealed", count = 2, scatter = 2}},
-	itemscatter = 2
+	items = {{name = modname.. ":screen_lode_annealed", count = 5, scatter = 3}},
+	itemscatter = 3
 })
 -- ================================================================== --
 nodecore.register_craft({

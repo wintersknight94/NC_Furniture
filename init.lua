@@ -25,14 +25,14 @@ include("fountain")
 ------------------------------------------------------------------------
 if minetest.get_modpath("wc_naturae") then
 	include("bamboo")
---	include("pinkfancy")
-end
-------------------------------------------------------------------------
-if minetest.get_modpath("nc_pummine") then
-	include("vulcan")
+	include("pinkfancy")
 end
 ------------------------------------------------------------------------
 if minetest.get_modpath("wc_pottery") then
 	include("ceramic")
+end
+------------------------------------------------------------------------
+if minetest.get_modpath("wc_vulcan") or minetest.get_modpath("nc_pummine") then
+	include("vulcan")
 end
 ------------------------------------------------------------------------

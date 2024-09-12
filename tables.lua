@@ -51,6 +51,7 @@ minetest.register_node(modname .. ":table_wicker", {
 		wickerbot,
 		wickertable
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -104,6 +105,7 @@ minetest.register_node(modname .. ":table_glassy", {
 		glassytable,
 
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {

@@ -7,6 +7,7 @@ local string_lower
 local modname = minetest.get_current_modname()
 -- ================================================================== --
 local lode = "nc_lode_annealed.png^[colorize:black:50"
+local hotlode	= "nc_lode_hot.png"
 local pumice = "nc_igneous_pumice.png"
 local lodeframe = lode.. "^[mask:nc_api_storebox_frame.png"
 local pumframe = pumice.. "^[mask:nc_api_storebox_frame.png"
@@ -22,6 +23,12 @@ local glow = "(nc_lux_base.png^[colorize:darkred:200)^(" ..glass.. ")"
 local lamplite = glow.. "^[lowpart:60:" ..pumice,"[combine:1x1"
 local pumchair = pumice.. "^(" ..lode.. "^[mask:(" ..modname.. "_trim.png^" ..modname.. "_bind.png))"
 local pumseat = pumice.. "^(" ..lode.. "^[mask:(" ..modname.. "_seat.png^nc_concrete_pattern_vermy.png))"
+local pstovetop	= pumtop.. "^(" ..lode.. "^[mask:" ..modname.. "_stovetop.png)"
+local povendoor	= pumtop.. "^(" ..lode.. "^[mask:" ..modname.. "_oven.png)"
+local ptoasttop	= pumice.. "^(" ..lode.. "^[mask:" ..modname.. "_toast.png)"
+local ptoasthot	= pumice.. "^(" ..hotlode.. "^[mask:" ..modname.. "_toast.png)"
+local pfridge	= pumice.. "^(" ..lode.. "^[mask:" ..modname.. "_fridge.png)"
+local picebox	= pumtop.. "^(" ..lode.. "^[mask:nc_concrete_pattern_iceboxy.png)"
 ------------------------------------------------------------------------
 local benchnodebox = {
 	{-0.5, -0.125, -0.3125, 0.5, 0, 0.3125},			-- Seat
@@ -55,6 +62,23 @@ local drawernodebox = {
 	{-0.0625, -0.25, -0.5625, 0.0625, -0.1875, -0.4375},	-- BottomKnob
 }
 local flatnodebox = {-0.5, -0.5, 0.4375, 0.5, 0.5, 0.5}	-- WallPlate
+local stovenodebox = {
+	{-0.5, -0.5, -0.5, 0.5, 0.4375, 0.5},				-- Oven
+	{-0.375, 0.4375, -0.375, -0.0625, 0.5, -0.0625},	-- FrontLeftBurner
+	{0.0625, 0.4375, -0.375, 0.375, 0.5, -0.0625},		-- FrontRightBurner
+	{0.0625, 0.4375, 0.0625, 0.375, 0.5, 0.375},		-- BackRightBurner
+	{-0.375, 0.4375, 0.0625, -0.0625, 0.5, 0.375},		-- BackLeftBurner
+}
+local toastnodebox = {
+	{-0.1875, -0.5, -0.25, 0.1875, -0.1875, 0.25},		-- Oven
+	{-0.25, -0.5, -0.3125, 0.25, -0.4375, 0.3125},		-- Base
+	{-0.0625, -0.3125, -0.3125, 0.0625, -0.25, 0.3125},	-- Switch
+}
+local fridgenodebox = {
+	{-0.5, -0.5, -0.4375, 0.5, 0.5, 0.5},				-- Fridge
+	{-0.375, -0.375, -0.5, 0.375, 0.375, -0.4375},		-- Door
+	{0.25, -0.1875, -0.5625, 0.3125, 0.1875, -0.4375},	-- Handle
+}
 -- ================================================================== --
 minetest.register_node(modname .. ":bench_pumice", {
 	description = "Vulcan Bench",
@@ -213,6 +237,89 @@ minetest.register_node(modname .. ":lamp_pumice", {
 	},
 	sounds = nodecore.sounds("nc_optics_glassy"),
 	})
+------------------------------------------------------------------------
+minetest.register_node(modname .. ":oven_pumice", {
+	description = "Vulcan Cookstove",
+	tiles = {
+		pstovetop,	--top
+		pumtop,	--bottom
+		pumtop,	--side
+		pumtop,	--side
+		pumtop,	--back
+		povendoor	--front
+	},
+	drawtype = "nodebox",
+	paramtype2 = "facedir",
+	node_box = {
+		type = "fixed",
+		fixed = stovenodebox
+	},
+	selection_box = nodecore.fixedbox(),
+	groups = {
+		cracky = 5,
+		furniture = 1,
+		stove = 1,
+		stack_as_node = 1,
+		storebox = 1,
+		visinv = 1
+	},
+	stack_max = 1,
+	sounds = nodecore.sounds("nc_optics_glassy"),
+	storebox_access = function(pt) return pt.above.y == pt.under.y end
+})
+minetest.register_node(modname .. ":toaster_pumice", {
+	description = "Vulcan Toaster",
+	tiles = {
+		ptoasttop,
+		pumice,
+		pumtop
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	node_box = {
+		type = "fixed",
+		fixed = toastnodebox
+	},
+	selection_box = nodecore.fixedbox(),
+	groups = {
+		snappy = 1,
+		furniture = 1,
+		stack_as_node = 1,
+		toaster = 1
+	},
+	sounds = nodecore.sounds("nc_optics_glassy")
+})
+minetest.register_node(modname .. ":fridge_pumice", {
+	description = "Vulcan Fridge",
+	tiles = {
+		picebox,	--top
+		picebox,	--bottom
+		picebox,	--side
+		picebox,	--side
+		picebox,	--back
+		pfridge		--front
+	},
+	drawtype = "nodebox",
+	paramtype2 = "facedir",
+	node_box = {
+		type = "fixed",
+		fixed = fridgenodebox
+	},
+	selection_box = nodecore.fixedbox(),
+	groups = {
+		cracky = 5,
+		furniture = 1,
+		fridge = 1,
+		stack_as_node = 1,
+		coolant = 1,
+		storebox = 1,
+		visinv = 1
+	},
+	stack_max = 1,
+	sounds = nodecore.sounds("nc_optics_glassy"),
+	storebox_access = function(pt) return pt.above.y == pt.under.y end
+})
 -- ================================================================== --
 nodecore.register_craft({
 	label = "make pumice bench",
