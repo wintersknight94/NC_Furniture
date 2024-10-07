@@ -39,6 +39,7 @@ minetest.register_node(modname .. ":bench_wicker", {
 		wicker,
 		wickbench
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",

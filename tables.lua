@@ -199,7 +199,7 @@ nodecore.register_craft({
 	label = "assemble wicker table",
 	indexkeys = {"nc_flora:wicker"},
 	nodes = {
-		{match = "nc_flora:wicker", replace = modname.. ":table_wooden"},
+		{match = "nc_flora:wicker", replace = modname.. ":table_wicker"},
 		{x = -1, match = "nc_woodwork:staff", replace = "air"},
 		{x = 1, match = "nc_woodwork:staff", replace = "air"},
 		{z = -1, match = "nc_woodwork:staff", replace = "air"},

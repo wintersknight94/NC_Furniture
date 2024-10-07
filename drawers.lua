@@ -46,6 +46,7 @@ minetest.register_node(modname .. ":drawers_wicker", {
 		pdbold,	--back
 		pdrawer	--front
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype2 = "facedir",
 	node_box = {

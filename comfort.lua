@@ -56,6 +56,7 @@ minetest.register_node(modname .. ":chair_wicker_padded", {
 		wicker,		--back
 		wickback		--front
 	},
+	use_texture_alpha = "blend",
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
